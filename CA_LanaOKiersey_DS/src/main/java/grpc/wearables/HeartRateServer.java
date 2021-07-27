@@ -7,6 +7,7 @@ import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
+
 public class HeartRateServer {
 	
 	private Server server;
@@ -49,5 +50,34 @@ public class HeartRateServer {
 			responseObserver.onNext(reply);
 			responseObserver.onCompleted();
 		}
+		
+		@Override
+		public StreamObserver<HeartRate> report(StreamObserver<Reply> responseObserver) {
+			return new StreamObserver<HeartRate>() {
+				
+				boolean heartRateDangerous = false;
+				public void onNext(HeartRate value) {
+					int heartRate = value.getRate();
+					if(heartRate<60 || heartRate > 100) {
+						heartRateDangerous = true;
+					}
+				}
+				public void onError(Throwable t) {
+					System.out.println("Error recieved " + t);
+				}
+				Reply reply;
+				public void onCompleted() {
+					if(heartRateDangerous) {
+						reply = Reply.newBuilder().setReplyString("Your daily heart rate level is too high, please go to the doctor").build();
+						responseObserver.onNext(reply);
+						responseObserver.onCompleted();
+					}else {
+						reply = Reply.newBuilder().setReplyString("Your daily heart rate levels are normal").build();
+						responseObserver.onNext(reply);
+						responseObserver.onCompleted();
+					}
+				}
+			};
 	}
+}
 }
