@@ -1,11 +1,11 @@
-package wearables;
+package grpc.wearables;
 
 import java.io.IOException;
 
+import grpc.wearables.HeartRateServiceGrpc.HeartRateServiceImplBase;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
-import wearables.HeartRateServiceGrpc.HeartRateServiceImplBase;
 
 public class HeartRateServer {
 	
@@ -37,13 +37,17 @@ public class HeartRateServer {
 			
 			int heartRate = request.getRate();
 			System.out.println("Recieved heart rate: " + heartRate);
-			//build out response
-			Reply reply = Reply.newBuilder().setReplyString("Heart rate recieved: " +heartRate).build();
+			Reply reply;
+			//build our response
+			if(heartRate<60 || heartRate > 100) {
+				reply = Reply.newBuilder().setReplyString("Heart rate recieved: " +heartRate + " Please go to the doctor").build();
+			}else {
+				reply = Reply.newBuilder().setReplyString("Heart rate recieved: " +heartRate + " Heart rate normal").build();
+			}
 			
 			//Send out message
 			responseObserver.onNext(reply);
 			responseObserver.onCompleted();
-			
 		}
 	}
 }

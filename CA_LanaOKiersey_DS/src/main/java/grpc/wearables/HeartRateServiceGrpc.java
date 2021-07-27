@@ -1,4 +1,4 @@
-package wearables;
+package grpc.wearables;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
@@ -27,30 +27,30 @@ public final class HeartRateServiceGrpc {
   public static final String SERVICE_NAME = "wearables.HeartRateService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<wearables.HeartRate,
-      wearables.Reply> getReportMethod;
+  private static volatile io.grpc.MethodDescriptor<grpc.wearables.HeartRate,
+      grpc.wearables.Reply> getReportMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "report",
-      requestType = wearables.HeartRate.class,
-      responseType = wearables.Reply.class,
+      requestType = grpc.wearables.HeartRate.class,
+      responseType = grpc.wearables.Reply.class,
       methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
-  public static io.grpc.MethodDescriptor<wearables.HeartRate,
-      wearables.Reply> getReportMethod() {
-    io.grpc.MethodDescriptor<wearables.HeartRate, wearables.Reply> getReportMethod;
+  public static io.grpc.MethodDescriptor<grpc.wearables.HeartRate,
+      grpc.wearables.Reply> getReportMethod() {
+    io.grpc.MethodDescriptor<grpc.wearables.HeartRate, grpc.wearables.Reply> getReportMethod;
     if ((getReportMethod = HeartRateServiceGrpc.getReportMethod) == null) {
       synchronized (HeartRateServiceGrpc.class) {
         if ((getReportMethod = HeartRateServiceGrpc.getReportMethod) == null) {
           HeartRateServiceGrpc.getReportMethod = getReportMethod = 
-              io.grpc.MethodDescriptor.<wearables.HeartRate, wearables.Reply>newBuilder()
+              io.grpc.MethodDescriptor.<grpc.wearables.HeartRate, grpc.wearables.Reply>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "wearables.HeartRateService", "report"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  wearables.HeartRate.getDefaultInstance()))
+                  grpc.wearables.HeartRate.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  wearables.Reply.getDefaultInstance()))
+                  grpc.wearables.Reply.getDefaultInstance()))
                   .setSchemaDescriptor(new HeartRateServiceMethodDescriptorSupplier("report"))
                   .build();
           }
@@ -59,30 +59,30 @@ public final class HeartRateServiceGrpc {
      return getReportMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<wearables.HeartRate,
-      wearables.Reply> getEmergencyReportMethod;
+  private static volatile io.grpc.MethodDescriptor<grpc.wearables.HeartRate,
+      grpc.wearables.Reply> getEmergencyReportMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "emergencyReport",
-      requestType = wearables.HeartRate.class,
-      responseType = wearables.Reply.class,
+      requestType = grpc.wearables.HeartRate.class,
+      responseType = grpc.wearables.Reply.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<wearables.HeartRate,
-      wearables.Reply> getEmergencyReportMethod() {
-    io.grpc.MethodDescriptor<wearables.HeartRate, wearables.Reply> getEmergencyReportMethod;
+  public static io.grpc.MethodDescriptor<grpc.wearables.HeartRate,
+      grpc.wearables.Reply> getEmergencyReportMethod() {
+    io.grpc.MethodDescriptor<grpc.wearables.HeartRate, grpc.wearables.Reply> getEmergencyReportMethod;
     if ((getEmergencyReportMethod = HeartRateServiceGrpc.getEmergencyReportMethod) == null) {
       synchronized (HeartRateServiceGrpc.class) {
         if ((getEmergencyReportMethod = HeartRateServiceGrpc.getEmergencyReportMethod) == null) {
           HeartRateServiceGrpc.getEmergencyReportMethod = getEmergencyReportMethod = 
-              io.grpc.MethodDescriptor.<wearables.HeartRate, wearables.Reply>newBuilder()
+              io.grpc.MethodDescriptor.<grpc.wearables.HeartRate, grpc.wearables.Reply>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "wearables.HeartRateService", "emergencyReport"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  wearables.HeartRate.getDefaultInstance()))
+                  grpc.wearables.HeartRate.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  wearables.Reply.getDefaultInstance()))
+                  grpc.wearables.Reply.getDefaultInstance()))
                   .setSchemaDescriptor(new HeartRateServiceMethodDescriptorSupplier("emergencyReport"))
                   .build();
           }
@@ -120,15 +120,15 @@ public final class HeartRateServiceGrpc {
 
     /**
      */
-    public io.grpc.stub.StreamObserver<wearables.HeartRate> report(
-        io.grpc.stub.StreamObserver<wearables.Reply> responseObserver) {
+    public io.grpc.stub.StreamObserver<grpc.wearables.HeartRate> report(
+        io.grpc.stub.StreamObserver<grpc.wearables.Reply> responseObserver) {
       return asyncUnimplementedStreamingCall(getReportMethod(), responseObserver);
     }
 
     /**
      */
-    public void emergencyReport(wearables.HeartRate request,
-        io.grpc.stub.StreamObserver<wearables.Reply> responseObserver) {
+    public void emergencyReport(grpc.wearables.HeartRate request,
+        io.grpc.stub.StreamObserver<grpc.wearables.Reply> responseObserver) {
       asyncUnimplementedUnaryCall(getEmergencyReportMethod(), responseObserver);
     }
 
@@ -138,15 +138,15 @@ public final class HeartRateServiceGrpc {
             getReportMethod(),
             asyncClientStreamingCall(
               new MethodHandlers<
-                wearables.HeartRate,
-                wearables.Reply>(
+                grpc.wearables.HeartRate,
+                grpc.wearables.Reply>(
                   this, METHODID_REPORT)))
           .addMethod(
             getEmergencyReportMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                wearables.HeartRate,
-                wearables.Reply>(
+                grpc.wearables.HeartRate,
+                grpc.wearables.Reply>(
                   this, METHODID_EMERGENCY_REPORT)))
           .build();
     }
@@ -172,16 +172,16 @@ public final class HeartRateServiceGrpc {
 
     /**
      */
-    public io.grpc.stub.StreamObserver<wearables.HeartRate> report(
-        io.grpc.stub.StreamObserver<wearables.Reply> responseObserver) {
+    public io.grpc.stub.StreamObserver<grpc.wearables.HeartRate> report(
+        io.grpc.stub.StreamObserver<grpc.wearables.Reply> responseObserver) {
       return asyncClientStreamingCall(
           getChannel().newCall(getReportMethod(), getCallOptions()), responseObserver);
     }
 
     /**
      */
-    public void emergencyReport(wearables.HeartRate request,
-        io.grpc.stub.StreamObserver<wearables.Reply> responseObserver) {
+    public void emergencyReport(grpc.wearables.HeartRate request,
+        io.grpc.stub.StreamObserver<grpc.wearables.Reply> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getEmergencyReportMethod(), getCallOptions()), request, responseObserver);
     }
@@ -207,7 +207,7 @@ public final class HeartRateServiceGrpc {
 
     /**
      */
-    public wearables.Reply emergencyReport(wearables.HeartRate request) {
+    public grpc.wearables.Reply emergencyReport(grpc.wearables.HeartRate request) {
       return blockingUnaryCall(
           getChannel(), getEmergencyReportMethod(), getCallOptions(), request);
     }
@@ -233,8 +233,8 @@ public final class HeartRateServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<wearables.Reply> emergencyReport(
-        wearables.HeartRate request) {
+    public com.google.common.util.concurrent.ListenableFuture<grpc.wearables.Reply> emergencyReport(
+        grpc.wearables.HeartRate request) {
       return futureUnaryCall(
           getChannel().newCall(getEmergencyReportMethod(), getCallOptions()), request);
     }
@@ -261,8 +261,8 @@ public final class HeartRateServiceGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_EMERGENCY_REPORT:
-          serviceImpl.emergencyReport((wearables.HeartRate) request,
-              (io.grpc.stub.StreamObserver<wearables.Reply>) responseObserver);
+          serviceImpl.emergencyReport((grpc.wearables.HeartRate) request,
+              (io.grpc.stub.StreamObserver<grpc.wearables.Reply>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -276,7 +276,7 @@ public final class HeartRateServiceGrpc {
       switch (methodId) {
         case METHODID_REPORT:
           return (io.grpc.stub.StreamObserver<Req>) serviceImpl.report(
-              (io.grpc.stub.StreamObserver<wearables.Reply>) responseObserver);
+              (io.grpc.stub.StreamObserver<grpc.wearables.Reply>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -289,7 +289,7 @@ public final class HeartRateServiceGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return wearables.service1Impl.getDescriptor();
+      return grpc.wearables.service1Impl.getDescriptor();
     }
 
     @java.lang.Override
