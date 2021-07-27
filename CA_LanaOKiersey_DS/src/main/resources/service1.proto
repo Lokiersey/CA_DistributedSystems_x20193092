@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "wearables";
+option java_multiple_files = true;
+option java_outer_classname = "service1Impl";
+
+package wearables;
+
+service HeartRateService{
+
+	rpc report(stream HeartRate) returns (Reply){}
+
+	rpc emergencyReport(HeartRate) returns (Reply){}
+
+}
+
+message HeartRate{
+	int32 rate =1;
+}
+
+message Reply{
+	string replyString = 1;
+}
