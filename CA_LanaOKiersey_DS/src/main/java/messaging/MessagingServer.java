@@ -28,32 +28,42 @@ public class MessagingServer {
 		System.out.println("Server running on port " + port);
 	}
 	
-	static class NewService2Impl extends MessagingServiceImplBase{
+static class NewService2Impl extends MessagingServiceImplBase{
 		
 		@Override
 		public void allMessages(MessageRequest request, StreamObserver<Message> responseObserver) {
 			String messageReq = request.getStringRequest();
 			System.out.println("Reqeust recieved: " + messageReq);
-			Message reply = Message.newBuilder().setStringMessage("Message1").build();
+			Message reply = Message.newBuilder().setStringMessage("Your perscription has been sent to your email").build();
 			responseObserver.onNext(reply);
-			reply = Message.newBuilder().setStringMessage("Message2").build();
+			reply = Message.newBuilder().setStringMessage("Yes there is an appointment available").build();
 			responseObserver.onNext(reply);
-			reply = Message.newBuilder().setStringMessage("Message3").build();
+			reply = Message.newBuilder().setStringMessage("Your heart rate is normal").build();
 			responseObserver.onNext(reply);
-			reply = Message.newBuilder().setStringMessage("Message4").build();
+			reply = Message.newBuilder().setStringMessage("No problem!").build();
 			responseObserver.onNext(reply);
 			responseObserver.onCompleted();
 		}
 		
 		public StreamObserver<Message> chat(StreamObserver<Message> responseObserver){
 			return new StreamObserver<Message> () {
-
+				int count=0;
 				@Override
 				public void onNext(Message value) {
 					String messageReq = value.getStringMessage();
 					System.out.println("Message recieved: " + messageReq);
-					Message reply = Message.newBuilder().setStringMessage(messageReq).build();
+					Message reply = null;
+					if(count == 0) {
+						reply = Message.newBuilder().setStringMessage("Your perscription has been sent to your email").build();
+					}else if(count == 1) {
+						reply = Message.newBuilder().setStringMessage("Yes there is an appointment available").build();
+					}else if(count == 2) {
+						reply = Message.newBuilder().setStringMessage("Your heart rate is normal").build();
+					}else if(count == 3) {
+						reply = Message.newBuilder().setStringMessage("No problem!").build();
+					}
 					responseObserver.onNext(reply);
+					count++;
 				}
 
 				@Override
