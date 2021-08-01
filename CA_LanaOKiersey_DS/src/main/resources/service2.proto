@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "messaging";
+option java_multiple_files = true;
+option java_outer_classname = "service2Impl";
+
+package messaging;
+
+service MessagingService{
+
+	rpc allMessages(MessageRequest) returns ( stream Message){}
+
+	rpc chat(stream Message) returns (stream Message){}
+
+}
+
+message MessageRequest{
+	string stringRequest =1;
+}
+
+message Message{
+	string stringMessage = 1;
+}
