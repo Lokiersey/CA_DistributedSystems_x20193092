@@ -55,12 +55,16 @@ public class HeartRateServer {
 		public StreamObserver<HeartRate> report(StreamObserver<Reply> responseObserver) {
 			return new StreamObserver<HeartRate>() {
 				
-				boolean heartRateDangerous = false;
+				boolean heartRateTooHigh = false;
+				boolean heartRateTooLow = false;
 				@Override
 				public void onNext(HeartRate value) {
+					System.out.println("Heartrate recieved" + value.getRate());
 					int heartRate = value.getRate();
-					if(heartRate<60 || heartRate > 100) {
-						heartRateDangerous = true;
+					if(heartRate<60) {
+						heartRateTooLow = true;
+					}else if(heartRate> 100) {
+						heartRateTooHigh = true;
 					}
 				}
 				@Override
@@ -71,8 +75,12 @@ public class HeartRateServer {
 				Reply reply;
 				@Override
 				public void onCompleted() {
-					if(heartRateDangerous) {
-						reply = Reply.newBuilder().setReplyString("Your daily heart rate level is too high, please go to the doctor").build();
+					if(heartRateTooHigh) {
+						reply = Reply.newBuilder().setReplyString("Your daily heart rate level is TOO HIGH, please go to the doctor").build();
+						responseObserver.onNext(reply);
+						responseObserver.onCompleted();
+					}else if(heartRateTooLow) {
+						reply = Reply.newBuilder().setReplyString("Your daily heart rate level is TOO LOW, please go to the doctor").build();
 						responseObserver.onNext(reply);
 						responseObserver.onCompleted();
 					}else {
