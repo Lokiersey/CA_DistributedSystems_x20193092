@@ -5,6 +5,7 @@ import java.io.IOException;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
+import wearables.HeartRateServer.NewService1Impl;
 import wearables.HeartRateServiceGrpc.HeartRateServiceImplBase;
 
 
@@ -21,9 +22,8 @@ public class HeartRateServer {
 	private void start() throws IOException, InterruptedException {
 		System.out.println("Server starting");
 		
-		int port = 50051; //dont go less than 1000
-		// different ports for different services e.g. 50052
-		
+		//create server
+		int port = 50051; 
 		server = ServerBuilder.forPort(port).addService(new NewService1Impl()).build().start();
 		server.awaitTermination();
 		
@@ -33,13 +33,14 @@ public class HeartRateServer {
 	
 	static class NewService1Impl extends HeartRateServiceImplBase {
 		
+		//emergencyReport() method
 		@Override
 		public void emergencyReport(HeartRate request, StreamObserver<Reply> responseObserver) {
 			
 			int heartRate = request.getRate();
 			System.out.println("Recieved heart rate: " + heartRate);
 			Reply reply;
-			//build our response
+			//build response
 			if(heartRate<60 || heartRate > 100) {
 				reply = Reply.newBuilder().setReplyString("Heart rate recieved: " +heartRate + " Please go to the doctor").build();
 			}else {
@@ -53,16 +54,20 @@ public class HeartRateServer {
 		
 		@Override
 		public StreamObserver<HeartRate> report(StreamObserver<Reply> responseObserver) {
+			System.out.println("In the report method");
 			return new StreamObserver<HeartRate>() {
 				
+				//Initialize booleans as false
 				boolean heartRateTooHigh = false;
 				boolean heartRateTooLow = false;
 				@Override
 				public void onNext(HeartRate value) {
 					System.out.println("Heartrate recieved" + value.getRate());
 					int heartRate = value.getRate();
+					//compare received heart rate to 60 - below 60 is a low heart rate
 					if(heartRate<60) {
 						heartRateTooLow = true;
+					//compare received heart rate to 100 - above 100 is a high heart rate
 					}else if(heartRate> 100) {
 						heartRateTooHigh = true;
 					}
@@ -76,20 +81,23 @@ public class HeartRateServer {
 				@Override
 				public void onCompleted() {
 					if(heartRateTooHigh) {
+						//the users heart rate is too high
 						reply = Reply.newBuilder().setReplyString("Your daily heart rate level is TOO HIGH, please go to the doctor").build();
-						responseObserver.onNext(reply);
+						responseObserver.onNext(reply); //send reply
 						responseObserver.onCompleted();
 					}else if(heartRateTooLow) {
+						//the users heart rate is too low
 						reply = Reply.newBuilder().setReplyString("Your daily heart rate level is TOO LOW, please go to the doctor").build();
-						responseObserver.onNext(reply);
+						responseObserver.onNext(reply); //send reply
 						responseObserver.onCompleted();
 					}else {
+						//the users heart rate is normal
 						reply = Reply.newBuilder().setReplyString("Your daily heart rate levels are normal").build();
-						responseObserver.onNext(reply);
+						responseObserver.onNext(reply); //send reply
 						responseObserver.onCompleted();
 					}
 				}
 			};
+		}
 	}
-}
 }
