@@ -22,8 +22,14 @@ public class HeartRateServer {
 	private void start() throws IOException, InterruptedException {
 		System.out.println("Server starting");
 		
-		//create server
+		//jmDNS
 		int port = 50051; 
+		String service_type = "_grpc._tcp.local.";
+		String service_name = "GrpcServer";
+		jmDNS.ServiceRegistration ssr = new jmDNS.ServiceRegistration();
+		ssr.run(port, service_type, service_name);
+		
+		//create server
 		server = ServerBuilder.forPort(port).addService(new NewService1Impl()).build().start();
 		server.awaitTermination();
 		

@@ -22,12 +22,17 @@ public class MessagingServer {
 	public void start() throws IOException, InterruptedException {
 		System.out.println("Server Starting");
 		
-		//creating the port
-		int port = 50052;
+		//jmDNS
+		int port = 50052; 
+		String service_type = "_grpc._tcp.local.";
+		String service_name = "GrpcServer";
+		jmDNS.ServiceRegistration ssr = new jmDNS.ServiceRegistration();
+		ssr.run(port, service_type, service_name);
+				
 		//creating the server
 		server = ServerBuilder.forPort(port).addService(new NewService2Impl()).build().start();
-		server.awaitTermination();
-		
+	    server.awaitTermination();
+				
 		System.out.println("Server running on port " + port);
 	}
 	

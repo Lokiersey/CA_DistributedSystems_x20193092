@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
+import javax.jmdns.ServiceInfo;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -131,7 +132,12 @@ public class ApplicationGUI implements ActionListener{
 		if(label.equals("Send Emergency Heart Rate")) {
 			System.out.println("Sending emergency heart rate ...");
 			
-			int port = 50051; //specifies where the service is running
+			ServiceInfo serviceInfo;
+			String service_type = "_grpc._tcp.local.";
+			//Now retrieve the service info - all we are supplying is the service type
+			serviceInfo = jmDNS.ServiceDiscovery.run(service_type);
+			//Use the serviceInfo to retrieve the port
+			int port = 50051;
 			String host = "localhost";
 			
 			//specifies where the grpc is and how to contact it
@@ -146,7 +152,12 @@ public class ApplicationGUI implements ActionListener{
 		}else if (label.equals("Send Daily Heart Rates")) {
 			System.out.println("Sending daily heart rates ...");
 			
-			int port = 50051; //specifies where the service is running
+			ServiceInfo serviceInfo;
+			String service_type = "_grpc._tcp.local.";
+			//Now retrieve the service info - all we are supplying is the service type
+			serviceInfo = jmDNS.ServiceDiscovery.run(service_type);
+			//Use the serviceInfo to retrieve the port
+			int port = 50051;
 			String host = "localhost";
 			
 			//specifies where the grpc is and how to contact it
@@ -193,7 +204,12 @@ public class ApplicationGUI implements ActionListener{
 		}else if (label.equals("Show all messages from doctor")) {
 			System.out.println("Receiving all messages from doctor ...");
 			
-			int port = 50052; //specifies where the service is running
+			ServiceInfo serviceInfo;
+			String service_type = "_grpc._tcp.local.";
+			//Now retrieve the service info - all we are supplying is the service type
+			serviceInfo = jmDNS.ServiceDiscovery.run(service_type);
+			//Use the serviceInfo to retrieve the port
+			int port = 50052;
 			String host = "localhost";
 			
 			//specifies where the grpc is and how to contact it
@@ -235,7 +251,12 @@ public class ApplicationGUI implements ActionListener{
 		}else if (label.equals("Send and receive messages")) {
 			System.out.println("Sending + receiving messages ...");
 			
-			int port = 50052; //specifies where the service is running
+			ServiceInfo serviceInfo;
+			String service_type = "_grpc._tcp.local.";
+			//Now retrieve the service info - all we are supplying is the service type
+			serviceInfo = jmDNS.ServiceDiscovery.run(service_type);
+			//Use the serviceInfo to retrieve the port
+			int port = 50052;
 			String host = "localhost";
 			
 			//specifies where the grpc is and how to contact it
